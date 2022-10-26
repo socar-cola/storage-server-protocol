@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package com.cola.grpc;
+
+option java_multiple_files = true;
+option java_outer_classname = "CustomMathProto";
+
+// 인터페이스
+service CustomMathService {
+  rpc Add (RequestMessage) returns (ResponseMessage) {}
+  rpc Subtract (RequestMessage) returns (ResponseMessage) {}
+  rpc Multiple (RequestMessage) returns (ResponseMessage) {}
+}
+
+message RequestMessage {
+  int32 first = 1;
+  int32 second = 2;
+}
+
+message ResponseMessage {
+  int32 result = 1;
+}
