@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package com.cola.grpc;
+
+option java_multiple_files = true;
+option java_outer_classname = "FileProto";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+
+service FileService {
+  rpc getAll(google.protobuf.Empty) returns (FileResponseArray);
+}
+
+message FileResponseArray {
+  repeated FileResponse fileResponses = 1;
+}
+
+message FileResponse {
+  UUID id = 1;
+  int64 size = 2;
+  string path = 3;
+  optional string originalName = 4;
+  optional string mime = 5;
+  optional google.protobuf.Timestamp createdAt = 6;
+  optional google.protobuf.Timestamp updatedAt = 7;
+}
+
+message UUID {
+  string value = 1;
+}
+
+
+//service FileService {
+//  rpc save(stream FileSaveRequest) returns (FileSaveResponse) {}
+//}
+//
+//message Metadata {
+//  string name = 1;
+//  string type = 2;
+//  int32 size = 3;
+//}
+//
+//message File {
+//  bytes content = 1;
+//}
+//
+//
+//message FileSaveRequest {
+//  oneof request {
+//    Metadata metadata = 1;
+//    File file = 2;
+//  }
+//}
+//
+//message FileSaveResponse {
+//  string id = 1;
+//}
