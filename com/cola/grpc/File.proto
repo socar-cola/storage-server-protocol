@@ -11,10 +11,12 @@ import "google/protobuf/timestamp.proto";
 
 
 service FileService {
-  rpc getAll(google.protobuf.Empty) returns (FileResponseArray);
+  rpc getAll(google.protobuf.Empty) returns (GetAllResponse);
+  rpc getUrl(GetUrlRequest) returns (SignedUrlResponse);
+
 }
 
-message FileResponseArray {
+message GetAllResponse {
   repeated FileResponse fileResponses = 1;
 }
 
@@ -28,6 +30,27 @@ message FileResponse {
   optional google.protobuf.Timestamp updatedAt = 7;
 }
 
+
+/**
+
+ */
+message GetUrlRequest {
+  UUID id = 1;
+}
+
+/**
+
+ */
+message SignedUrlResponse {
+  string url = 1;
+  int32 expiredTime = 2;
+  google.protobuf.Timestamp expiredAt = 3;
+}
+
+
+/**
+
+ */
 message UUID {
   string value = 1;
 }
