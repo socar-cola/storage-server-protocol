@@ -14,6 +14,7 @@ service FileService {
   rpc getSignedUrl(GetSignedUrlRequest) returns (GetSignedUrlResponse);
   rpc getAll(google.protobuf.Empty) returns (GetAllResponse);
   rpc getAllByPaging(GetAllByPagingRequest) returns (GetAllByPagingResponse);
+  rpc save(stream SaveRequest) returns (SaveResponse);
 }
 
 /**
@@ -74,29 +75,35 @@ message UUID {
   string value = 1;
 }
 
+/**
 
-//service FileService {
-//  rpc save(stream FileSaveRequest) returns (FileSaveResponse) {}
-//}
-//
-//message Metadata {
-//  string name = 1;
-//  string type = 2;
-//  int32 size = 3;
-//}
-//
-//message File {
-//  bytes content = 1;
-//}
-//
-//
-//message FileSaveRequest {
-//  oneof request {
-//    Metadata metadata = 1;
-//    File file = 2;
-//  }
-//}
-//
-//message FileSaveResponse {
-//  string id = 1;
-//}
+ */
+message Metadata {
+  string name = 1;
+  string type = 2;
+  int32 size = 3;
+}
+
+/**
+
+ */
+message File {
+  bytes inputStream = 1;
+}
+
+/**
+
+ */
+message SaveRequest {
+  oneof request {
+    Metadata metadata = 1;
+    File file = 2;
+  }
+}
+
+/**
+
+ */
+message SaveResponse {
+  string id = 1;
+}
